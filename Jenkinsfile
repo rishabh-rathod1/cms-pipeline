@@ -17,7 +17,7 @@ pipeline {
         stage('Docker Build & Deploy') {
             steps {
                 sh 'docker build -t cms-app .'
-                sh 'ansible-playbook ansible/deploy_app.yml'
+                sh 'ansible-playbook deploy_app.yml'
             }
         }
     }
