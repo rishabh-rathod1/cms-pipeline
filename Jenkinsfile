@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourusername/cms.git'
+                git 'https://github.com/rishabh-rathod1/cms-pipeline.git'
             }
         }
 
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Docker Build & Deploy') {
             steps {
-                sh 'ansible-playbook ansible/deploy_app.yml'
+                sh 'ansible-playbook deploy_app.yml'
             }
         }
     }
