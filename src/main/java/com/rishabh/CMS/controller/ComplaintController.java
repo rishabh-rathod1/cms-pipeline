@@ -14,20 +14,51 @@ public class ComplaintController {
     @Autowired
     private ComplaintRepository repo;
 
+    // Create a new complaint
     @PostMapping
     public Complaint submitComplaint(@RequestBody Complaint complaint) {
+        complaint.setStatus("OPEN"); // default status
         return repo.save(complaint);
     }
 
+    // Get all complaints
     @GetMapping
     public List<Complaint> getAllComplaints() {
         return repo.findAll();
     }
 
-    @PutMapping("/{id}/resolve")
-    public Complaint resolveComplaint(@PathVariable Long id) {
-        Complaint complaint = repo.findById(id).orElseThrow();
-        complaint.setStatus("Resolved");
+    // Get a specific complaint by ID
+    @GetMapping("/{id}")
+    public Complaint getComplaintById(@PathVariable Long id) {
+        return repo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Complaint not found with ID: " + id));
+    }
+
+    // Update an entire complaint
+    @PutMapping("/{id}")
+    public Complaint updateComplaint(@PathVariable Long id, @RequestBody Complaint updated) {
+        Complaint complaint = repo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Complaint not found with ID: " + id));
+
+        complaint.setDescription(updated.getDescription());
+        complaint.setPriority(updated.getPriority());
+        complaint.setStatus(updated.getStatus());
         return repo.save(complaint);
+    }
+
+    // Update only the status
+    @PatchMapping("/{id}/status")
+    public Complaint updateStatus(@PathVariable Long id, @RequestParam String status) {
+        Complaint complaint = repo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Complaint not found with ID: " + id));
+
+        complaint.setStatus(status);
+        return repo.save(complaint);
+    }
+
+    // Delete a complaint
+    @DeleteMapping("/{id}")
+    public void deleteComplaint(@PathVariable Long id) {
+        repo.deleteById(id);
     }
 }
