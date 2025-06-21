@@ -41,7 +41,7 @@ public class ComplaintController {
             .orElseThrow(() -> new RuntimeException("Complaint not found with ID: " + id));
 
         complaint.setDescription(updated.getDescription());
-        complaint.setPriority(updated.getPriority());
+        
         complaint.setStatus(updated.getStatus());
         return repo.save(complaint);
     }
