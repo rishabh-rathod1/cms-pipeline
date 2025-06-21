@@ -1,0 +1,12 @@
+- name: Deploy CMS App Locally with Docker
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Stop existing container
+      shell: docker stop cms-app || true && docker rm cms-app || true
+
+    - name: Build docker image
+      shell: docker build -t cms-app .
+
+    - name: Run docker container
+      shell: docker run -d -p 9090:9090 --name cms-app cms-app
