@@ -15,6 +15,9 @@ public class Complaint {
     private String description;
     private String status = "Pending";
     private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "priority")
+    private String priority;
+
 	/**
 	 * @return the id
 	 */
