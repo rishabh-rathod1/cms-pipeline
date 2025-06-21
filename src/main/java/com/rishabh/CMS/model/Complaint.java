@@ -87,6 +87,22 @@ public class Complaint {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+	public Object getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setTitle(Object title) {
+		// TODO Auto-generated method stub
+		
+	}
+	public Object getPriority() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setPriority(Object priority) {
+		// TODO Auto-generated method stub
+		
+	}
 
     // Getters and Setters
     // (Right click → Generate → Getters and Setters)
