@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import io.micrometer.core.instrument.MeterRegistry;
+
+
 
 @RestController
 @RequestMapping("/api/complaints")
@@ -13,10 +16,18 @@ public class ComplaintController {
 
     @Autowired
     private ComplaintRepository repo;
+    private final MeterRegistry meterRegistry;
+
+    public ComplaintController(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+    }
+
+   
 
     // Create a new complaint
     @PostMapping
     public Complaint submitComplaint(@RequestBody Complaint complaint) {
+    	meterRegistry.counter("complaints.submitted").increment();
         complaint.setStatus("OPEN"); // default status
         return repo.save(complaint);
     }
